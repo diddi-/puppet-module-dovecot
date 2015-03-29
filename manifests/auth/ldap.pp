@@ -46,5 +46,7 @@ class dovecot::auth::ldap (
     owner    => $dovecot::user,
     group    => $dovecot::group,
     content  => template('dovecot/dovecot-ldap.conf.ext'),
+    notify   => Service["${dovecot::service_name_real}"],
+    require  => Package[$dovecot::package_name_real],
   }
 }

@@ -22,5 +22,6 @@ class dovecot::master (
     group   => $dovecot::group,
     content => template('dovecot/10-master.conf.erb'),
     notify  => Service["${dovecot::service_name_real}"],
+    require => Package["${dovecot::package_name_real}"],
   }
 }

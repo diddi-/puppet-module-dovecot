@@ -59,6 +59,7 @@ class dovecot::mail (
     group   => $dovecot::group,
     content => template('dovecot/10-mail.conf.erb'),
     notify  => Service["${dovecot::service_name_real}"],
+    require => Package["${dovecot::package_name_real}"],
   }
 
   if $shared_maildir != undef {

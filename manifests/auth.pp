@@ -45,5 +45,6 @@ class dovecot::auth (
     group   => $dovecot::group,
     content => template('dovecot/10-auth.conf.erb'),
     notify  => Service["${dovecot::service_name_real}"],
+    require => Package[$dovecot::package_name_real],
   }
 }

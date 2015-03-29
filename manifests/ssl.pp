@@ -24,5 +24,6 @@ class dovecot::ssl (
     group   => $dovecot::group,
     content => template('dovecot/10-ssl.conf.erb'),
     notify  => Service["${dovecot::service_name_real}"],
+    require => Package["${dovecot::package_name_real}"],
   }
 }
