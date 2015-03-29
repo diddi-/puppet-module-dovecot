@@ -1,0 +1,29 @@
+##### THIS FILE IS MANAGED BY PUPPET #####
+#####          DO NOT EDIT           #####
+
+<% if scope.lookupvar('dovecot::master::default_login_user') != :undef -%>
+default_login_user = <%= scope.lookupvar('dovecot::master::default_login_user') %>
+<% end -%>
+<% if scope.lookupvar('dovecot::master::default_internal_user') != :undef -%>
+default_internal_user = <%= scope.lookupvar('dovecot::master::default_internal_user') %>
+<% end -%>
+
+<% if scope.lookupvar('dovecot::master::service') != :undef -%>
+<% scope.lookupvar('dovecot::master::service').each_pair do |name, listener| -%>
+service <%= name %> {
+<% listener.each_pair do |l_name, opts| -%>
+  <%= opts['type'] %>_listener <%= l_name %> {
+<% if opts.has_key?('port') -%>
+    port = <%= opts['port'] %>
+<% end -%>
+<% if opts.has_key?('ssl') -%>
+    ssl = <%= opts['ssl'] %>
+<% end -%>
+<% if opts.has_key?('mode') -%>
+    mode = <%= opts['mode'] %>
+<% end -%>
+  }
+<% end -%>
+}
+<% end -%>
+<% end -%>

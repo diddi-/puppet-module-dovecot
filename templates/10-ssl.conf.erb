@@ -1,0 +1,12 @@
+##### THIS FILE IS MANAGED BY PUPPET #####
+#####          DO NOT EDIT           #####
+
+ssl = <%= @enable %>
+
+<% if scope.lookupvar('dovecot::ssl::ssl_cert') != :undef -%>
+ssl_cert = <<%= scope.lookupvar('dovecot::ssl::ssl_cert') %>
+<% end -%>
+<% if @ssl_key != :undef -%>
+ssl_key = <<%= scope.lookupvar('dovecot::ssl::ssl_key') %>
+<% end -%>
+

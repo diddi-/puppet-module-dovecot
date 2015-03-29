@@ -1,0 +1,26 @@
+##### THIS FILE IS MANAGED BY PUPPET #####
+#####          DO NOT EDIT           #####
+
+<% if scope.lookupvar('dovecot::mail::mail_location') != :undef -%>
+mail_location = <%= scope.lookupvar('dovecot::mail::mail_location') %>
+<% end -%>
+<% if scope.lookupvar('dovecot::mail::namespace') != :undef -%>
+<% scope.lookupvar('dovecot::mail::namespace').each_pair do |name, opts| -%>
+namespace <%= name %> {
+<% if opts.has_key?('inbox') -%>
+  inbox = <%= opts['inbox'] %>
+<% end -%>
+}
+<% end -%>
+<% end -%>
+<% if @uid -%>
+uid = <%= @uid %>
+<% end -%>
+<% if @gid -%>
+gid = <%= @gid %>
+<% end -%>
+
+mail_fsync = <%= scope.lookupvar('dovecot::mail::mail_fsync') %>
+mmap_disable = <%= scope.lookupvar('dovecot::mail::mmap_disable') %>
+mail_nfs_index = <%= scope.lookupvar('dovecot::mail::nfs_index') %>
+mail_nfs_storage = <%= scope.lookupvar('dovecot::mail::nfs_storage') %>

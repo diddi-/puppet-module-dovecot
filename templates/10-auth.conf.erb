@@ -1,0 +1,29 @@
+##### THIS FILE IS MANAGED BY PUPPET #####
+#####          DO NOT EDIT           #####
+
+<% if @auth_mechanism -%>
+auth_mechanisms =<% @auth_mechanism.each do |mechanism| -%>
+ <%= mechanism %><% end %>
+<% end -%>
+<% if @auth_username_format -%>
+auth_username_format = <%= @auth_username_format %>
+<% end -%>
+<% if @disable_plaintext_auth -%>
+disable_plaintext_auth = <%= @disable_plaintext_auth %>
+<% end -%>
+<% if scope.lookupvar('dovecot::auth::passdb_driver') != :undef %>
+passdb {
+  driver = <%= scope.lookupvar('dovecot::auth::passdb_driver') %>
+<% if scope.lookupvar('dovecot::auth::passdb_driver') == 'ldap' -%>
+  args = <%= scope.lookupvar('dovecot::confdir_real') %>/dovecot-ldap.conf.ext
+<% end -%>
+}
+<% end -%>
+<% if scope.lookupvar('dovecot::auth::userdb_driver') != :undef -%>
+userdb {
+  driver = <%= scope.lookupvar('dovecot::auth::userdb_driver') %>
+<% if scope.lookupvar('dovecot::auth::userdb_args') != :undef -%>
+  args = <%= scope.lookupvar('dovecot::auth::userdb_args') %>
+<% end -%>
+}
+<% end -%>

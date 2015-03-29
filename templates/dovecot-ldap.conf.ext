@@ -1,0 +1,23 @@
+##### THIS FILE IS MANAGED BY PUPPET #####
+#####          DO NOT EDIT           #####
+
+auth_bind = <%= scope.lookupvar('dovecot::auth::ldap::auth_bind') %>
+<% if scope.lookupvar('dovecot::auth::ldap::auth_bind_userdn') != :undef -%>
+auth_bind_userdn = <%= scope.lookupvar('dovecot::auth::ldap::auth_bind_userdn') %>
+<% end -%>
+base = <%= scope.lookupvar('dovecot::auth::ldap::base') %>
+<% if scope.lookupvar('dovecot::auth::ldap::dn') != :undef -%>
+dn = <%= scope.lookupvar('dovecot::auth::ldap::dn') %>
+<% end -%>
+<% if scope.lookupvar('dovecot::auth::ldap::dnpass') != :undef -%>
+dnpass = <%= scope.lookupvar('dovecot::auth::ldap::dnpass') %>
+<% end -%>
+<% if scope.lookupvar('dovecot::auth::ldap::hosts') != :undef -%>
+hosts =<% scope.lookupvar('dovecot::auth::ldap::hosts').each do |host| -%> <%= host %><% end %>
+<% end -%>
+pass_attrs = <%= scope.lookupvar('dovecot::auth::ldap::pass_attrs') %>
+pass_filter = <%= scope.lookupvar('dovecot::auth::ldap::pass_filter') %>
+tls = <%= scope.lookupvar('dovecot::auth::ldap::tls') %>
+user_attrs = <%= scope.lookupvar('dovecot::auth::ldap::user_attrs') %>
+user_filter = <%= scope.lookupvar('dovecot::auth::ldap::user_filter') %>
+
